@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Método Gráfico</title>
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="js/chart-min.js"></script>
+	<script type="text/javascript" src="js/w3.js"></script>
+</head>
+<body>
+	<div w3-include-html="templates/nav.html" class="w3-top"></div>
+	
+	<div class="w3-main" style="margin-left: 250px">
+		<div class="w3-row w3-padding-64">
+			<h2 class="w3-text-grey w3-padding-small">Método Gráfico</h2>
+			<div class="w3-hide w3-sidebar w3-bar-block" style="width:25%;right:0" id="datos"></div>
+			<div class="w3-twothird w3-container">	
+				<button onclick="acordeon('Demo1')" class="w3-button w3-border w3-light-blue w3-block w3-left-align">Configuración del problema</button>
+				<div id="Demo1" class="w3-hide w3-show w3-container w3-border w3-padding-24">
+					<div id="alert" class="w3-panel w3-pale-red w3-center w3-hide">
+						Ingresa el número de restricciones
+					</div> 
+					<label for="nres" class="w3-label">Número de restricciones</label>
+					<input id="nres" class=" w3-border w3-round" type="number" min="0" required autofocus>
+					<button onclick="inicio()" class="w3-btn w3-round-xlarge w3-blue">Aceptar</button>
+				</div>
+				<button onclick="acordeon('Demo2')" class="w3-button w3-border w3-block w3-left-align">Función objetivo</button>
+				<div id="Demo2" class="w3-hide w3-container w3-border w3-padding-24">
+					<p id="msj1" class="w3-show">Primero ingresa la configuración del problema</p>
+					<table id="form" class="w3-hide">
+						<tbody>
+							<tr><th >Z</th><th style="min-width:20px"></th><th>X1</th><th style="min-width:20px"></th><th>X2</th></tr>
+						</tbody>
+						<tbody>
+							<tr><td><input id="z" class=" w3-border w3-round" value="1" type="text" disabled></td><td><label>=</label></td>
+							<td><input id="x1" class="coeficientes w3-border w3-round" type="text"></td><td><label>+</label></td>
+							<td><input id="x2" class="coeficientes w3-border w3-round" type="text"></td></tr>
+						</tbody>
+					</table>
+				</div>
+				<button onclick="acordeon('Demo3')" class="w3-button w3-border w3-block w3-left-align">Número de restricciones</button>
+				<div id="Demo3" class="w3-hide w3-container w3-border w3-padding-24">
+					<p id="msj1" class="w3-show">Primero ingresa la configuración del problema</p>
+					<div id="alert2" class="w3-panel w3-pale-red w3-center w3-hide">
+						Introduce todos los campos correctamente
+					</div> 
+					<table id="form" class="w3-hide">
+						<tbody>
+							<tr><th>X1</th><th>X2</th><th style="margin:20px;"></th><th>R</th></tr>
+						</tbody>
+						<tbody id="form2"></tbody>
+					</table>
+				</div>
+				<p id="grafica"></p>
+				<button onclick="acordeon('Demo4')" class="w3-button w3-border w3-block w3-left-align">Gráfico</button>
+				<div id="Demo4" class="w3-hide w3-container w3-border w3-padding-24">
+					<p id="msj2" class="w3-show">Primero ingresa la configuración del problema</p>					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<footer w3-include-html="templates/footer.html" class="w3-container w3-padding-64 w3-center w3-opacity"></footer>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script>w3IncludeHTML();</script>
+</body>
+</html>
