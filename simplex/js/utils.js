@@ -219,7 +219,9 @@ function areaSol(inter,coef,puntos,rFact) {
 			}
 		}
 		if(band == true) {
-			rFact.push(puntos[i]);
+			if(puntos[i].x >= 0 && puntos[i].y >= 0){
+				rFact.push(puntos[i]);
+			}
 		}
 	}
 }
