@@ -150,7 +150,6 @@ function resolver() {
 	}
 
 	intersecciones(inter,coef);
-	
 	var puntos = [];
 	for(i = 0;i < inter[0].length; i++){ puntos.push({x:inter[0][i],y:inter[1][i]}); }
 
@@ -172,7 +171,7 @@ function intersecciones(inter,coef) {
 			     - (parseFloat(coef[2+i*3+1].value)*parseFloat(coef[2+j*3+2].value)))/d;
 			dY = ((parseFloat(coef[2+i*3].value)*parseFloat(coef[2+j*3+2].value))
 			      - (parseFloat(coef[2+i*3+2].value)*parseFloat(coef[2+j*3].value)))/d;
-			dX = parseFloat(dX.toFixed(8)); dY = parseFloat(dY.toFixed(8));
+//			dX = parseFloat(dX.toFixed(8)); dY = parseFloat(dY.toFixed(8));
 			if(dX>= 0.0 && dY>=0.0) {
 				inter[0].push(dX);
 				inter[1].push(dY);
@@ -319,7 +318,7 @@ function dibujar(poligono){
 						return "Punto "; 
 					},
 					label: function(tooltipItems) {
-						return "X: " + tooltipItems.xLabel + " Y: " + tooltipItems.yLabel;
+						return "X: " + tooltipItems.xLabel.toFixed(5) + " Y: " + tooltipItems.yLabel.toFixed(5);
 					},
 					footer: function (tooltipItem) { return ""; }
 				}
@@ -334,7 +333,7 @@ function dibujar(poligono){
 						<h2><br>Zmin: "+zMin+"<h2>Zmax: "+zMax);
 	}else{
 	$('#datos').append("<div class= 'w3-panel w3-card-4 w3-pale-blue' id='card'>\
-						<h2>Punto Mínimo<br>X1: "+pMin.x+"<br>X2: "+pMin.y+"<br>Zmin: "+zMin+
-						"<h2>Punto Máximo<br>X1: "+pMax.x+"<br>X2: "+pMax.y+"<br>Zmax: "+zMax);
+						<h2>Punto Mínimo<br>X1: "+pMin.x.toFixed(5)+"<br>X2: "+pMin.y.toFixed(5)+"<br>Zmin: "+zMin.toFixed(5)+
+						"<h2>Punto Máximo<br>X1: "+pMax.x.toFixed(5)+"<br>X2: "+pMax.y.toFixed(5)+"<br>Zmax: "+zMax.toFixed(5));
 	}
 }
