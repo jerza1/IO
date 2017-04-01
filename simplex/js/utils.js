@@ -3,8 +3,9 @@ var colores = ['blue','green','yellow','purple','lime','navy','magenta','maroon'
 * zX1[float],zX2[float]: valor de X1 y X2 de función objetivo
 * rectas[array]: recta de cada ecuación
 */
-var nRes; var zX1; var zX2; var rectas = [];
-var noHayArea;
+var zX1; var zX2;
+var nRes;  var rectas = [];
+var maxX1; var maxX2;
 /**[w3IncludeHTML agrega plantillas]*/
 function w3IncludeHTML() {
   var z, i, elmnt, file, xhttp;
@@ -81,7 +82,6 @@ function inicio() {
 			  obtiene las rectas de cada ecuación,
 			  obtiene coordenada máxima]*/
 function resolver() {
-	noHayArea = false;
 	var rFact= [];
 	var coef = $('.coeficientes');
 	for(i = 0; i < coef.length; i++) {
@@ -130,6 +130,7 @@ function resolver() {
 	var pot = parseInt(Math.log10(max));
 	cXmax = parseInt(max/(Math.pow(10,pot)));
 	cXmax++;	cXmax*=(Math.pow(10,pot));
+
 	inter[0].push(0.0);
 	inter[1].push(0.0);
 	for(i = 0;i < nRes; i++) {
@@ -150,6 +151,7 @@ function resolver() {
 	}
 
 	intersecciones(inter,coef);
+
 	var puntos = [];
 	for(i = 0;i < inter[0].length; i++){ puntos.push({x:inter[0][i],y:inter[1][i]}); }
 
@@ -165,16 +167,13 @@ function resolver() {
 function intersecciones(inter,coef) {
 	for(i = 0; i < nRes-1; i++) {
 		for(j = i+1; j < nRes; j++) {
-			d = (parseFloat(coef[2+i*3].value)*parseFloat(coef[2+j*3+1].value))
-			  - (parseFloat(coef[2+i*3+1].value)*parseFloat(coef[2+j*3].value));
-			dX = ((parseFloat(coef[2+i*3+2].value)*parseFloat(coef[2+j*3+1].value))
-			     - (parseFloat(coef[2+i*3+1].value)*parseFloat(coef[2+j*3+2].value)))/d;
-			dY = ((parseFloat(coef[2+i*3].value)*parseFloat(coef[2+j*3+2].value))
-			      - (parseFloat(coef[2+i*3+2].value)*parseFloat(coef[2+j*3].value)))/d;
-//			dX = parseFloat(dX.toFixed(8)); dY = parseFloat(dY.toFixed(8));
-			if(dX>= 0.0 && dY>=0.0) {
-				inter[0].push(dX);
-				inter[1].push(dY);
+			iY = parseFloat(coef[2+j*3+1].value)/parseFloat(coef[2+i*3+1].value);
+			iX = parseFloat(coef[2+i*3].value)*iY - parseFloat(coef[2+j*3].value);
+			iX  = (parseFloat(coef[2+i*3+2].value)*iY-parseFloat(coef[2+j*3+2].value))/iX;
+			iY = (parseFloat(coef[2+i*3+2].value) -  parseFloat(coef[2+i*3].value)*iX) / parseFloat(coef[2+i*3+1].value);
+			if(iX>= 0.0 && iY>=0.0) {
+				inter[0].push(iX);
+				inter[1].push(iY);
 			}
 		}
 	}
@@ -198,19 +197,20 @@ function areaSol(inter,coef,puntos,rFact) {
 				case 0:
 				if(pEval <= res)
 					break;
-				else{ band = false; }
+				else{ 
+					band = false; }
 				break;
 				case 1:
-				if(pEval == res){
-					noHayArea = true;
+				if(pEval == res)
 					break;
-				}
-				else{ band = false; }
+				else{ 
+					band = false; }
 				break;
 				case 2:
 				if(pEval >= res)
 					break;
-				else{ band = false; }
+				else{ 
+					band = false; }
 				break;
 				default:
 				console.error("No hay intersecciones");
@@ -222,7 +222,7 @@ function areaSol(inter,coef,puntos,rFact) {
 				rFact.push(puntos[i]);
 			}
 		}
-	}
+	}	
 }
 /** [convex ordena los puntos de rFact con el Método Graham]
 * @param array rFact guarda los puntos del area de soluciones
@@ -246,7 +246,7 @@ function convex(rFact){
 	}
 	superior.pop();
 	inferior.pop();
-	dibujar(inferior.concat(superior));
+	dibujar(inferior.concat(superior),rFact);
 }
 /** [area2 calcula el area de 3 puntos y verifica hacia donde gira]
 * @param object origen punto de inicio
@@ -262,21 +262,20 @@ function area2(origen, aux, destino){
 /**[dibujar crea el canvas dibuja las rectas, la región factible y la funcion objetivo]
 *  @param array poligono arreglo de objetos que guarda las puntos de la región factible
 */
-function dibujar(poligono){
-	var zMin=Number.POSITIVE_INFINITY, zMax=Number.NEGATIVE_INFINITY;
+function dibujar(poligono,rFact){
+	var zMin = Number.POSITIVE_INFINITY, zMax = Number.NEGATIVE_INFINITY;
 	var pMax, pMin;
-	for(i = 0;i < poligono.length && noHayArea == false; i++){
-		if(zMin > (poligono[i].x * zX1) + (poligono[i].y * zX2)){
-			zMin = poligono[i].x*(zX1) + poligono[i].y*(zX2);
-			pMin = poligono[i];
+	for(i = 0;i < rFact.length; i++){
+		if(zMin > rFact[i].x*zX1 + rFact[i].y*zX2){
+			zMin = rFact[i].x*zX1 + rFact[i].y*zX2;
+			pMin = rFact[i];
 		}
-		if(zMax < (poligono[i].x * zX1) + (poligono[i].y * zX2)){
-			zMax = poligono[i].x*(zX1) + poligono[i].y*(zX2);
-			pMax = poligono[i];
+		if(zMax < rFact[i].x*zX1 + rFact[i].y*zX2){
+			zMax = rFact[i].x*zX1 + rFact[i].y*zX2;
+			pMax = rFact[i];
 		}
 	}
-	poligono.push(poligono[0]);
-	
+	poligono.push(poligono[0]);	
 	var data = [];
 	for(i = 0;i < nRes; i++) {
 		data.push({'label':'E'+(i+1),'type':'line','backgroundColor':colores[i],'borderColor':colores[i],
@@ -291,7 +290,7 @@ function dibujar(poligono){
 	data.push({'label':'RF','type':'line','backgroundColor':'rgba(0,0,0,0.3)','borderColor':'rgba(0,0,0,0.3)',
 				'data':poligono,'fill':true,'pointRadius':4});
 	$('canvas').remove();
-	$('iframe.chartjs-hidden-iframe').remove(); 
+	
 	$('#Demo4').append('<canvas id="lineChart" class="w3-show">\
 						Tu navegador no soporta el elemento CANVAS</canvas>');
 	var ctx = document.getElementById("lineChart");
@@ -318,7 +317,7 @@ function dibujar(poligono){
 						return "Punto "; 
 					},
 					label: function(tooltipItems) {
-						return "X: " + tooltipItems.xLabel.toFixed(5) + " Y: " + tooltipItems.yLabel.toFixed(5);
+						return "X: " + tooltipItems.xLabel.toFixed(6) + " Y: " + tooltipItems.yLabel.toFixed(6);
 					},
 					footer: function (tooltipItem) { return ""; }
 				}
@@ -328,12 +327,7 @@ function dibujar(poligono){
 	
 	w3.addClass('#datos','w3-show');
 	$('#card').remove();
-	if(noHayArea){
-		$('#datos').append("<div class= 'w3-panel w3-card-4 w3-pale-blue' id='card'>\
-						<h2><br>Zmin: "+zMin+"<h2>Zmax: "+zMax);
-	}else{
 	$('#datos').append("<div class= 'w3-panel w3-card-4 w3-pale-blue' id='card'>\
-						<h2>Punto Mínimo<br>X1: "+pMin.x.toFixed(5)+"<br>X2: "+pMin.y.toFixed(5)+"<br>Zmin: "+zMin.toFixed(5)+
-						"<h2>Punto Máximo<br>X1: "+pMax.x.toFixed(5)+"<br>X2: "+pMax.y.toFixed(5)+"<br>Zmax: "+zMax.toFixed(5));
-	}
+						<h2>Punto Mínimo<br>X1: "+pMin.x.toFixed(6)+"<br>X2: "+pMin.y.toFixed(6)+"<br>Zmin: "+zMin.toFixed(6)+
+						"<h2>Punto Máximo<br>X1: "+pMax.x.toFixed(6)+"<br>X2: "+pMax.y.toFixed(6)+"<br>Zmax: "+zMax.toFixed(6));
 }
