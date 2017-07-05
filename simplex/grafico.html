@@ -12,7 +12,7 @@
 <body>
 	<div w3-include-html="templates/nav.html" class="w3-top"></div>
 	
-	<div class="w3-main" style="margin-left: 250px">
+	<div class="w3-main" style=" min-width:80%; margin-left: 20%; margin-right: 20%;">
 		<div class="w3-row w3-padding-64">
 			<h2 class="w3-text-grey w3-padding-small">Método Gráfico</h2>
 			<div class="w3-hide w3-sidebar w3-bar-block" style="width:25%;right:0" id="datos"></div>
@@ -35,8 +35,8 @@
 						</tbody>
 						<tbody>
 							<tr><td><input id="z" class=" w3-border w3-round" value="1" type="text" disabled></td><td><label>=</label></td>
-							<td><input id="x1" class="coeficientes w3-border w3-round" type="text"></td><td><label>+</label></td>
-							<td><input id="x2" class="coeficientes w3-border w3-round" type="text"></td></tr>
+							<td><input id="x1" class="coeficientes1 w3-border w3-round" type="text"></td><td><label>+</label></td>
+							<td><input id="x2" class="coeficientes1 w3-border w3-round" type="text"></td></tr>
 						</tbody>
 					</table>
 				</div>
@@ -61,10 +61,10 @@
 			</div>
 		</div>
 	</div>
-	
 	<footer w3-include-html="templates/footer.html" class="w3-container w3-padding-64 w3-center w3-opacity"></footer>
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/grafico.js"></script>
 	<script>w3IncludeHTML();</script>
 </body>
 </html>

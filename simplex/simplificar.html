@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>simplifying fractions</title>
+</head>
+<body>
+  <h1 class="title">Simplify Fractions</h1>
+  <div class="info">
+    <p>Insert numerator and denominator and the you will get it simplified.</p>
+  </div>
+  <div class="input">
+    <div>
+      <p>Numerator: </p>
+      <input type="text" id="numerator" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    </div>
+    <div>
+      <p>Denominator: </p>
+      <input type="text" id="denominator" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    </div>
+    <button id="send">Send</button>
+  </div>
+  <div class="display">
+    <p id="results"></p>
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+	var numerator = document.getElementById("numerator");
+var denominator = document.getElementById("denominator");
+var send = document.getElementById("send");
+var lowNum;
+
+send.addEventListener("click", function () {
+  document.getElementById("results").innerHTML = "";
+  if (numerator.value > denominator.value) {
+    lowNum = denominator.value;
+  } else {
+    lowNum = numerator.value;
+  }
+
+  for (var i = 0; i < lowNum+1; i++) {
+    if (numerator.value % i === 0 && denominator.value % i === 0) {
+      document.getElementById("results").innerHTML = "numerator: " + numerator.value / i + " denominator: " + denominator.value / i;
+    }
+  }
+});
+ 
+
+
+	</script>

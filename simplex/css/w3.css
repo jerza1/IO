@@ -362,8 +362,11 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 .w3-border-pale-yellow,.w3-hover-border-pale-yellow:hover{border-color:#ffffcc!important}.w3-border-pale-blue,.w3-hover-border-pale-blue:hover{border-color:#e7ffff!important}
 
 /*mis estilos */
-
-input,select{
+h4{
+	max-width: 850px;
+	padding-left: 20px;
+	}
+input{
 	margin-left: 20px;
 	margin-right: 20px;
 	height: 30px;
@@ -375,6 +378,60 @@ input,select{
 .w3-label:hover{
 	cursor: pointer;
 }
-input:focus{
+input:focus, select:focus{
 	box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+}
+[id^="msj"]{
+	text-align: center;
+	width: 30%;
+	margin: 0 auto;
+}
+#solucion{
+	width: 50%;
+	margin: 0 auto;
+}
+textarea{
+	letter-spacing: 2px;
+	text-align: center;
+	border:2px solid white;	
+}
+textarea:focus{
+	box-shadow:0 2px 4px 0 rgb(94, 145, 233),0 2px 10px 0 rgba(96, 111, 197, 0.86) !important
+}
+#costos{
+	border-left: 1px solid rgba(0,0,0,0.3);
+	border-right: 1px solid rgba(0,0,0,0.3);
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+#signo{
+	border-left: 1px solid rgba(0,0,0,0.3);
+	font-size: 30px;
+	font-color: red;
+}
+[id^="bNB"]{
+	border-right: 1px solid rgba(0,0,0,0.3);
+	border-left: 1px solid rgba(0,0,0,0.3);
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+#oferta{
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+#multV{	
+	background: #00bcd4;
+	max-width: 20px;
+	color:white;
+}
+#multU{	
+	background: #00bcd4;
+	max-width: 20px;
+	color:white;
+}
+
+[id^= 'valorZ']{
+	font-size: 22px;
+	border-bottom: 2px solid black;
+	max-width: 50%;
+	margin: 10px auto;
+	border-left: 2px solid;
+	border-right: 2px solid;
 }
