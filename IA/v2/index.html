@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ES">
+<head>
+	<meta charset="UTF-8">
+	<title>Métodos de Búsquedas - IA</title>
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/w3.js"></script>
+	<script type="text/javascript" src="js/vis.js"></script>
+	<script type="text/javascript" src="js/algoritmos.js"></script>
+    <link href="css/vis.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body onload="draw()"> 
+<div class="w3-row ">
+	<div class="w3-col m6 w3-mobile">
+		<div class="w3-row">
+			<div class="w3-col m6 w3-center">
+				<h1 class="w3-label">Definir grafo</h1>
+				<label for="nodos" class="w3-label"># NODOS</label>
+				<input id="nodos" class="w3-border w3-round w3-input" min="1" required="" autofocus="" type="number">
+				<br><button onclick="draw()" class="w3-btn w3-round-xlarge w3-blue">Aceptar</button>
+			</div>
+			<div class="w3-col m6 w3-center">
+				<h2 class="w3-label" onclick="acordeon('tabla')">Agregar/Eliminar Nodos</h2>
+				<table class="w3-hide" id="tabla"> 
+					<tr>
+						<td><label for="node-id">ID</label></td>
+						<td><input id="node-id" type="text" class="w3-input"></td>
+					</tr>       	
+					<tr>
+						<td><label for="node-label">Label</label></td>
+						<td><input id="node-label" type="text" class="w3-input"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<button class="w3-button w3-circle w3-teal" id="node-add" onclick="addNode();">+</button>
+							<button class="w3-button w3-circle w3-red" id="node-remove" onclick="removeNode();">-</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="w3-row">
+			<div class="w3-col w3-mobile w3-center w3-padding-32">
+				<h1 class="w3-label">Definir Problema</h1>
+				<label for="algoritmos" class="w3-label">Método: </label>
+				<select name="algoritmos" class="w3-select" style="width:40%" onchange="prof(this.value)">
+					<option value="0">Amplitud</option>
+					<option value="1">Profundidad</option>
+					<option value="2">Profundidad Limitada</option>
+					<option value="3">Profundidad Iterativa</option>
+					<option value="4">Costo Uniforme</option>
+				</select><br/><br/>
+				<div class="w3-row-padding">
+					<div class="w3-third">
+						<label for="inicio">Inicio</label>
+						<input id="inicio" class="w3-border w3-round w3-input"  disabled="">
+					</div>
+					<div class="w3-third">
+						<label for="meta">Meta</label>
+						<input id="meta" class="w3-border w3-round w3-input"  disabled >
+					</div>
+					<div class="w3-third w3-hide" id="inpProf">
+						<label for="prof" id="labelProf"></label>
+						<input id="prof" value="1" class="w3-border w3-round w3-input" min="1" required="" type="number">
+					</div>
+				</div><br/> 
+				<button class="w3-btn w3-round-xlarge w3-blue" onclick="resolver()">Resolver</button>
+			</div>
+		</div>
+		<div class="w3-row">
+			<div class="w3-col w3-center">
+				<h1 class="w3-label">SOLUCIÓN</h1>
+				<p id="rutaSolucion"></p>
+				<p id="solucion"></p>
+			</div>
+		</div>
+	</div>
+	<div class="w3-col m6 w3-mobile" >
+		<div id="node-popUp" class="w3-mobile">
+			<span id="node-operation">node</span> <br>
+			<table style="margin:auto;">
+				<tr>
+					<td>ID</td><td><input id="node-id2" class="w3-border w3-round w3-input"/></td>
+				</tr>
+				<tr>
+					<td>Etiqueta</td><td><input id="node-label2" class="w3-border w3-round w3-input"/></td>
+				</tr>
+			</table>
+			<button  id="node-saveButton" class="w3-btn w3-blue">Guardar</button>
+			<button  id="node-cancelButton" class="w3-btn w3-red">Cancelar</button>
+		</div>
+		<div id="edge-popUp" class="w3-mobile">
+			<span id="edge-operation">Arista</span> <br>
+			<table style="margin:auto;">
+				<tr>
+					<td>Costo</td><td><input id="edge-label" class="w3-border w3-round w3-input"/></td>
+				</tr>
+			</table>
+			<button id="edge-saveButton" class="w3-btn w3-blue">Guardar</button>
+			<button id="edge-cancelButton" class="w3-btn w3-red">Cancelar</button>
+		</div>
+		<label class="w3-label w3-center"><h1>Grafo</h1></label>
+		<div id="network"></div>
+		<label class="w3-label w3-center w3-hide"><h1>Simulación</h1></label>
+		<div id="simulation" class="w3-hide"></div>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+</html>

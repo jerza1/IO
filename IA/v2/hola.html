@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search methods - AI</title>
+    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/knowledge/512/electronic_brain-512.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-deep_purple.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.7/go-debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.7/go.js"></script>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/searchMethods.css">
+</head>
+<body>
+<div id="layout" class="mdl-grid">
+    <div class="form-container mdl-cell mdl-cell--4-col">
+        <div id="f1" class="sets">
+            <h5>Define nodes</h5>
+            <form>
+                <!-- Define number of nodes and prepares the graph -->
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="[0-9]+" id="n-nodes" autofocus>
+                    <label class="mdl-textfield__label" for="n-nodes">Number of nodes</label>
+                    <span class="mdl-textfield__error">Input is not a positive integer!</span>
+                </div>
+                <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="auto-make" style="margin: 30px auto;">
+                    <input type="checkbox" id="auto-make" class="mdl-switch__input">
+                    <span class="mdl-switch__label">Auto generate graph</span>
+                </label>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <select class="mdl-textfield__input" id="example" name="example">
+                        <option value="random">Random</option>
+                        <option value="bb-tree">Balanced binary tree</option>
+                        <option value="b-tree">Binary tree</option>
+                    </select>
+                    <label class="mdl-textfield__label" for="example">Example</label>
+                </div>
+                <div class="auto-sets mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="[0-9]+" id="min-nodes" value="5">
+                    <label class="mdl-textfield__label" for="min-nodes">Min nodes</label>
+                    <span class="mdl-textfield__error">Input is not a positive integer!</span>
+                </div>
+                <div class="auto-sets mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="[0-9]+" id="max-nodes" value="15">
+                    <label class="mdl-textfield__label" for="max-nodes">Max nodes</label>
+                    <span class="mdl-textfield__error">Input is not a positive integer!</span>
+                </div>
+                <div class="auto-sets mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="[0-9]+" id="max-cost" value="5">
+                    <label class="mdl-textfield__label" for="max-cost">Max cost</label>
+                    <span class="mdl-textfield__error">Input is not a positive integer!</span>
+                </div>
+            </form>
+            <button style="visibility: hidden" class="flow-button">
+                Next
+            </button>
+            <button data-href="#f2"
+                    class="flow-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Next
+            </button>
+            <div class="instructions">
+                <label for="f1-instructions">Click me to see instructions</label>
+                <ol id="f1-instructions" style="display: none">
+                    <li>
+                        If you want to auto generate the graph then:
+                        <ol>
+                            <li>Select which kind of example you want.</li>
+                            <li>Set things like minimum/maximum number of nodes, maximum cost per link, etc.</li>
+                            <li>Click on Auto generate graph toggle and Next, next, next!</li>
+                        </ol>
+                    </li>
+                    <li>
+                        Else select the number of nodes you want in the graph and ignore the settings below.<br>
+                        <i>The number of nodes must be an integer greater than 0</i>.
+                    </li>
+                    <li>After you filled with valid data click next.</li>
+                </ol>
+            </div>
+        </div>
+        <div id="f2" class="sets">
+            <h5>Define links</h5>
+            <form>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" name="link-action" class="mdl-radio__button" value="rm">
+                    <span class="mdl-radio__label">Remove link</span>
+                </label><br>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" name="link-action" class="mdl-radio__button" value="mk">
+                    <span class="mdl-radio__label">Make link</span>
+                </label><br>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" name="link-action" class="mdl-radio__button" value="drag" checked>
+                    <span class="mdl-radio__label">Just drag</span>
+                </label><br>
+                <div class="mdl-textfield mdl-textfield--floating-label mdl-js-textfield">
+                    <textarea id="links" class="mdl-textfield__input" rows="12"></textarea>
+                    <label class="mdl-textfield__label" for="links">Write your links</label>
+                </div>
+            </form>
+            <button data-href="#f1"
+                    class="flow-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Back
+            </button>
+            <button data-href="#f3"
+                    class="flow-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Next
+            </button>
+            <div class="instructions">
+                <label for="f2-instructions">Click me to see instructions</label>
+                <ol id="f2-instructions" style="display: none">
+                    <li>In this screen you can modify the graph according to selected option.</li>
+                    <li>
+                        When Make link option is selected, a link between the next two nodes you click
+                        will be made.
+                    </li>
+                    <li>
+                        When Remove link option is selected, the next link you select will disappear.
+                    </li>
+                    <li>
+                        At any time you can drag any node, but if a make/remove link option is selected,
+                        then it may create links. To just drag nodes the Just drag options should be selected.
+                    </li>
+                    <li>
+                        You also can set the link in the text area by writing 1 link per line in the format:<br>
+                        <i>nodeA nodeB cost</i><br>
+                        This is the recommended way to add links because you have control on the cost of the links,
+                        you can omit cost, then default cost would be 1.
+                    </li>
+                    <li>
+                        After you finished the graph construction, click next.<br>
+                        The links in the text area will be built after you click the next button.
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div id="f3" class="sets">
+            <h5>Define problem</h5>
+            <form>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <select class="mdl-textfield__input" id="algorithm" name="algorithm">
+                        <option value="bfs">Breadth first search</option>
+                        <option value="dfs">Deep first search</option>
+                        <option value="l-dfs">Deepening DFS</option>
+                        <option value="il-dfs" selected>Iterative deepening DFS</option>
+                        <option value="ucs">Uniform cost search</option>
+                    </select>
+                    <label class="mdl-textfield__label" for="algorithm">Algorithm</label>
+                </div>
+                <div class="nodes mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="[0-9]+ *" id="start">
+                    <label class="mdl-textfield__label" for="start">Beginning</label>
+                    <span class="mdl-textfield__error">Input is not a positive integer!</span>
+                </div>
+                <div class="nodes mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="[0-9]+( [0-9]+)* *" id="goal">
+                    <label class="mdl-textfield__label" for="goal">Goals</label>
+                    <span class="mdl-textfield__error">Input are not all positive integers</span>
+                </div>
+                <div class="nodes mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="[1-9]+[0-9]* *" id="limit" value="1"
+                           autofocus>
+                    <label class="mdl-textfield__label" for="limit">Limit</label>
+                    <span class="mdl-textfield__error">Input is not a positive integer!</span>
+                </div>
+                <div class="mdl-textfield mdl-textfield--floating-label mdl-js-textfield">
+                    <textarea id="procedure" class="mdl-textfield__input" rows="10"></textarea>
+                    <label class="mdl-textfield__label" for="procedure">Procedure</label>
+                </div>
+            </form>
+            <button data-href="#f2"
+                    class="flow-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Back
+            </button>
+            <button id="draw"
+                    class="flow-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Go!
+            </button>
+            <div class="instructions">
+                <label for="f3-instructions">Click me to see instructions</label>
+                <ol id="f3-instructions" style="display: none">
+                    <li>This screen lets you select how you want to solve the graph</li>
+                    <li>Select which algorithm to use</li>
+                    <li>Select the starting node</li>
+                    <li>Select the goal. You can choose several goals by separating them with a space</li>
+                    <li>Whenever you're ready, click on GO! button</li>
+                    <li>
+                        On the procedure textfield, it will show you the list and current node
+                        as well as other useful info
+                    </li>
+                    <li>
+                        Legend:
+                        <ul style="border: 1px solid; background: #aaa">
+                            <li style="color: lightblue">unvisited</li>
+                            <li style="color: lightcoral">visited</li>
+                            <li style="color: green">active</li>
+                            <li style="color: lightgreen">active path</li>
+                            <li style="color: lemonchiffon">pending nodes/opened nodes</li>
+                            <li style="color: blue">start/goal</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div id="graphDiv" style="border: solid 1px black; background: white; height: 700px"
+         class="mdl-cell mdl-cell--8-col"></div>
+</div>
+</body>
+</html>

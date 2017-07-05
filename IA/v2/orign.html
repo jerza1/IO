@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ES">
+<head>
+	<meta charset="UTF-8">
+	<title>Métodos de Búsquedas - IA</title>
+	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/w3.js"></script>
+	<script type="text/javascript" src="js/vis.js"></script>
+    <link href="css/vis.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body>
+<div class="w3-row">
+	<div class="w3-col m3 w3-center">
+		<label for="nodos" class="w3-label"><h1>Número de Nodos</h1></label>
+	<div class="w3-container w3-padding-24 w3-center">
+		<input id="nodos" class=" w3-border w3-round" min="0" required="" autofocus="" type="number">
+		<button onclick="draw()" class="w3-btn w3-round-xlarge w3-blue">Aceptar</button>
+	</div>
+	<button onclick="acordeon('demo1')" class="w3-button w3-border w3-block w3-left-align">Editar Nodos</button>
+	<div id="demo1" class="w3-hide w3-container w3-border w3-padding-24">
+        <table> 
+        	<tr>
+        		<td><label for="node-id">ID</label></td>
+        		<td><input id="node-id" type="text"></td>
+        	</tr>       	
+        	<tr>
+        		<td><label for="node-label">Label</label></td>
+        		<td><input id="node-label" type="text"></td>
+        	</tr>
+        	<tr>
+        		<td></td>
+        		<td>
+        			<button class="w3-button w3-circle w3-teal" id="node-add" onclick="addNode();">+</button>
+        			<button class="w3-button w3-circle w3-red" id="node-remove" onclick="removeNode();">-</button>
+        		</td>
+        	</tr>
+        </table>
+	</div>
+	</div>
+	<div class="w3-col m3 w3-center">
+		<h1 class="w3-label">Solución</h1>
+		<label for="algoritmos">Algoritmo de:</label>
+		<select name="algoritmos" class="w3-select" style="width:40%">
+			<option value="0">Amplitud</option>
+			<option value="1">Profundidad</option>
+			<option value="2">Profundidad Limitada</option>
+			<option value="3">Profundidad Iterativa</option>
+			<option value="4">Costo Uniforme</option>
+		</select><br><br>
+		<button class="w3-btn w3-round-xlarge w3-blue" onclick="resolver()">Resolver</button> 
+		<p id="solucion"></p>
+	</div>
+	<div class="w3-col m6">
+		<div id="node-popUp">
+			<span id="node-operation">node</span> <br>
+			<table style="margin:auto;">
+				<tr>
+					<td>ID</td><td><input id="node-id2" /></td>
+				</tr>
+				<tr>
+					<td>Etiqueta</td><td><input id="node-label2" /></td>
+				</tr>
+			</table>
+			<button  id="node-saveButton" class="w3-btn w3-blue">Aceptar</button>
+			<button  id="node-cancelButton" class="w3-btn w3-red">Cancelar</button>
+		</div>
+		<div id="edge-popUp">
+  			<span id="edge-operation">Arista</span> <br>
+  			<table style="margin:auto;">
+    			<tr>
+      				<td>Costo</td><td><input id="edge-label" /></td>
+    			</tr>
+    		</table>
+  			<button id="edge-saveButton" class="w3-btn w3-blue">Guardar</button>
+  			<button id="edge-cancelButton" class="w3-btn w3-red">Cancelar</button>
+		</div>
+		<label class="w3-label w3-center"><h1>Grafo</h1></label>
+		<div id="network"></div>
+		<label class="w3-label w3-center w3-hide"><h1>Simulación</h1></label>
+		<div id="simulation" class="w3-hide"></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+</html>

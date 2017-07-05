@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ES">
+<head>
+	<meta charset="UTF-8">
+	<title>Trabajo final IA</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/p5.min.js"></script>
+    <script type="text/javascript" src="js/p5.dom.js"></script>
+    <script type="text/javascript" src="js/sketch.js"></script>
+    <script type="text/javascript" src="js/spot.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/w3.css">
+    <script type="text/javascript" src="js/w3.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body onload="activar()">
+		<div class="w3-row">
+			<div class="w3-col w3-container " style="width:20%">
+				<div>
+					<h3>Pila y Costos</h3>
+					<p id="ruta"></p>
+				</div>
+			</div>
+			<div class="w3-col w3-container" style="width:60%">
+				<div><h3>Ruta Solución:</h3><p id='solucion'></p></div>
+				<div class="w3-row-padding w3-center" id="aaa">
+					<div class="w3-third" id='algoritm'>    
+					</div>
+					<div class="w3-third" id='lista'>
+					</div>
+				</div> 
+				<div id="network" oncontextmenu="return false">
+					<div class="w3-bar w3-card" id="bar">
+						<select multiple size="1" name="bar-slc" id='solo'>
+							<option value="0" selected="selected">Figuras</option>
+							<option value="1">Inicio/Meta</option>
+							<option value="2">Grafo</option>
+						</select>
+					</div><br>
+				</div>
+			</div>
+			<div class="w3-col w3-container" style="width:20%">
+				<div>
+					<h4>Coordenadas y Heuristica</h4>
+					<p id="simulation"></p>
+				</div>
+			</div>
+		</div> 
+</body>
+<script type="text/javascript" src="js/algoritmos.js"></script>
+<!--https://mega.nz/#!6McCWbLJ!BvQKLsJS7NFGDQE1J-v-JI1Kf1xizdCpdyI6YtTXb1I-->
+</html>
